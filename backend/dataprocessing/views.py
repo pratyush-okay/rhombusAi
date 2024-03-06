@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
@@ -60,9 +61,11 @@ def is_bool(col: pd.Series):
 
 def is_category(col: pd.Series):
     series = col.dropna()
-    if len(series.unique()) / len(series) <= 0.5:  # Example threshold for categorization
-        return True
+    if len(series) > 0:  # Check if series is not empty
+        if len(series.unique()) / len(series) <= 0.5:  # Example threshold for categorization
+            return True
     return False
+
 
 def is_datetime(col: pd.Series):
     series = col.dropna()
@@ -89,9 +92,9 @@ def clean_column(col: pd.Series):
 def infer_col_type(col: pd.Series):
     if is_numeric(col):
         if is_float(col=col):
-            return "Float"
-        else:
             return "Int"
+        else:
+            return "Float"
     else:
         if is_bool(col=col):
             return "Bool"
@@ -114,12 +117,18 @@ def get_data_types(df):
 
         data_types[col] = infer_col_type(df[col])
     return data_types
-        
+
+def missing_values(df):
+    missing_val = ['NA', 'N/A', 'Not Available', 'NaN', 'None', 'Null', '-', ' ', 'Missing']
+    cleaned_df = df[~df.isin(missing_val).any(axis=1)]
+    return cleaned_df
+
 
 def process_data(request):
     if request.method == 'POST' and request.FILES['file']:
         file = request.FILES['file']
         df = pd.read_csv(file)
+        df = missing_values(df)
         dtypes_dict = get_data_types(df)
         print(dtypes_dict)
         return JsonResponse(dtypes_dict, safe=False)
