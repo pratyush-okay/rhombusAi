@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import DataTable from './components/data_table';
+import './App.css';
+
 const App = () => {
 
 
     const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('No file selected');
+    const [data, setData] = useState(null);
 
     const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+        setFileName(selectedFile ? selectedFile.name : 'No file selected');
     }
 
     // const endpoint = 'http://localhost:8000/dataprocessing/process_data/';
@@ -26,7 +33,9 @@ const App = () => {
                     response.text().then(text => console.log(text));
                     throw new Error('Unable to upload file');
                 }
-            }).then(data => { console.log(data); })
+            }).then(data => { 
+                setData(data);
+                console.log(data); })
             .catch(error => {
                 console.error(error);
                 alert('Error uploading file');
@@ -34,13 +43,20 @@ const App = () => {
     };
 
     return (
-        <div>
+        <div className='output'>
             <h1>Data Processing App</h1>
 
             <form onSubmit={(e) => { handleUpload(e) }}>
-                <input type="file" name="fileToUpload" id="fileToUpload" onChange={handleFileChange}/>
+                <div className='upload'>
+                    <label className='uploadLabel' htmlFor="fileToUpload">Upload a file</label>
+                    <input type="file" name="fileToUpload" id="fileToUpload" onChange={handleFileChange}/>
+                    <span  style={{ marginLeft: '30px' }}>{fileName}</span>
+                </div>
                 <button type="submit" value="Upload" onClick={handleUpload}>Upload</button>
+
             </form>
+
+            {data && <DataTable data={data} />}
         </div>
     );
 };

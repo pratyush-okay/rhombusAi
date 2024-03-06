@@ -1,0 +1,34 @@
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Style for table headers */
+th {
+    background-color: #607274;
+    color: white;
+    border: 1px solid #607274;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Style for table data cells */
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* Style for select dropdown */
+select {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+/* Style for select dropdown options */
+option {
+    padding: 5px;
+}
