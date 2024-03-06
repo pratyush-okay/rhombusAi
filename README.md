@@ -1,8 +1,6 @@
 # rhombusAi
 
-Here's a README template for your project:
-
----
+YouTube Video [text](https://youtu.be/r3pnB1LcQg8)
 
 # Data Processing Web Application
 
