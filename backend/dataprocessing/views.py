@@ -4,7 +4,6 @@ from django.shortcuts import render
 
 
 def index(request):
-    # Your view logic here
     return render(request, 'index.html')  
 
 def data_types(df):
@@ -33,7 +32,6 @@ def data_types(df):
 def is_numeric(col: pd.Series):
     series = col.dropna()
     try:
-    # Attempt to convert to numeric first
         return not all(pd.isna(pd.to_numeric(series, errors='coerce')))
     except:
         return False
@@ -91,24 +89,24 @@ def clean_column(col: pd.Series):
 def infer_col_type(col: pd.Series):
     if is_numeric(col):
         if is_float(col=col):
-            return "decimal"
+            return "Float"
         else:
-            return "int"
+            return "Int"
     else:
         if is_bool(col=col):
-            return "boolean"
+            return "Bool"
         elif is_category(col=col):
-            return "category"
+            return "Category"
         elif is_datetime(col=col):
-            return "datetime"
+            return "Date"
         elif is_complex(col=col):
-            return "complex"
+            return "Complex"
         elif is_timedelta(col=col):
-            return "timedelta"
+            return "TimeDelta"
         elif is_datetime(col=col):
-            return "datetime"
+            return "Date"
     
-    return "object"
+    return "Text"
 
 def get_data_types(df):
     data_types = {}
@@ -123,10 +121,8 @@ def process_data(request):
         file = request.FILES['file']
         df = pd.read_csv(file)
         dtypes_dict = get_data_types(df)
-        # dtypes_dict = df.dtypes.apply(lambda x: x.name).to_dict()
         print(dtypes_dict)
         return JsonResponse(dtypes_dict, safe=False)
-    # return JsonResponse({'error': 'Invalid request'}, status=400)
     return JsonResponse({'message': 'Request processed succesfully'})
 
 
