@@ -12,6 +12,7 @@ const App = () => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
         setFileName(selectedFile ? selectedFile.name : 'No file selected');
+        setData(null);
     }
 
     const handleUpload = (e) => {

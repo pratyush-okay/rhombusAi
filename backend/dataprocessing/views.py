@@ -135,5 +135,3 @@ def process_data(request):
     return JsonResponse({'message': 'Request processed succesfully'})
 
 
-
-

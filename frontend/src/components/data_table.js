@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import "./data_table.css";
 
 const DataTable = ({ data }) => {
-    const types = ['Text', 'Int', 'Float', 'Bool', 'Date', 'TimeDelta', 'Category'];
-
+    const allowed_data_conversions = {
+        'Text': ['Text', 'Category'],
+        'Int': ['Int', 'Float', 'Text', 'Category'],
+        'Float': ['Float', 'Int', 'Text', 'Category'],
+        'Bool': ['Bool', 'Text', 'Category'],
+        'Date': ['Date', 'Text', 'Category'],
+        'TimeDelta': ['TimeDelta', 'Text', 'Category'],
+        'Category': ['Category', 'Text']
+    }
     // State to store selected data types
     const [selectedDataTypes, setSelectedDataTypes] = useState({});
-    const [newDataTypes, setNewDataTypes] = useState(null);
-
+    const [updatedDataTypes, setUpdatedDataTypes] = useState({});
     // Function to update selected data types
     const updateSelectedDataTypes = (field, dataType) => {
         setSelectedDataTypes(prevState => ({
@@ -16,15 +22,12 @@ const DataTable = ({ data }) => {
         }));
     };
 
-    // Function to create a new dictionary with original and selected changed data types
-    const createNewDictionary = () => {
-        const newDataTypes = {};
-        Object.entries(data).forEach(([field, dataType]) => {
-            newDataTypes[field] = selectedDataTypes[field] || dataType;
-        });
-        setNewDataTypes(newDataTypes);
-        console.log(newDataTypes);
-    };
+
+    const updateDataTypes = () => {
+        setUpdatedDataTypes(selectedDataTypes);
+       
+    }
+    
 
     return (
         <div>
@@ -47,7 +50,7 @@ const DataTable = ({ data }) => {
                                     value={selectedDataTypes[field] || dataType}
                                     onChange={(e) => updateSelectedDataTypes(field, e.target.value)}
                                 >
-                                    {types.map(type => (
+                                    {allowed_data_conversions[dataType].map(type => (
                                         <option key={type} value={type}>{type}</option>
                                     ))}
                                 </select>
@@ -58,8 +61,8 @@ const DataTable = ({ data }) => {
             </table>
 
             {/* Updated data types */}
-            <button onClick={createNewDictionary}>Update Data Types</button>
-            {newDataTypes && (
+            <button type="file" name="file" id="file" onClick={updateDataTypes}>Update Data Types</button>
+            {Object.keys(updatedDataTypes).length > 0  && (
                 <div>
                     <h2>Updated Data Types</h2>
                     <table>
@@ -70,7 +73,7 @@ const DataTable = ({ data }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Object.entries(newDataTypes).map(([field, dataType]) => (
+                            {Object.entries(updatedDataTypes).map(([field, dataType]) => (
                                 <tr key={field}>
                                     <td>{field}</td>
                                     <td>{dataType}</td>
