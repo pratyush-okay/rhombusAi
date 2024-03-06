@@ -4,7 +4,6 @@ import './App.css';
 
 const App = () => {
 
-
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('No file selected');
     const [data, setData] = useState(null);
@@ -15,11 +14,8 @@ const App = () => {
         setFileName(selectedFile ? selectedFile.name : 'No file selected');
     }
 
-    // const endpoint = 'http://localhost:8000/dataprocessing/process_data/';
-
     const handleUpload = (e) => {
         e.preventDefault()
-        // const file = fileInput.files[0];
         const formData = new FormData();
         formData.append('file', file, 'file.csv');
         fetch("http://localhost:8000/process_data/", {
@@ -45,7 +41,7 @@ const App = () => {
     return (
         <div className='output'>
             <h1>Data Processing App</h1>
-
+            {/* Form to handle file upload */}
             <form onSubmit={(e) => { handleUpload(e) }}>
                 <div className='upload'>
                     <label className='uploadLabel' htmlFor="fileToUpload">Upload a file</label>
@@ -55,7 +51,7 @@ const App = () => {
                 <button type="submit" value="Upload" onClick={handleUpload}>Upload</button>
 
             </form>
-
+            {/* Display processed data */}
             {data && <DataTable data={data} />}
         </div>
     );

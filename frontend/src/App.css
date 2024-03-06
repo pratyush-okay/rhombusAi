@@ -21,7 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* Use the full height of the viewport */
+  height: 100vh;
   margin-top: 20px;
 }
 
@@ -43,12 +43,11 @@ form {
 }
 
 input[type="file"] {
-  /* Hide the default file input button */
   display: none;
 }
 
 .custom-file-input {
-  display: none; /* Hide the default file input */
+  display: none; 
 }
 
 .uploadLabel{
