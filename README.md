@@ -34,13 +34,13 @@ To run the application using Docker, follow these steps:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-repository.git
+   git clone https://github.com/pratyush-okay/rhombusAi.git
    ```
 
 2. Build the Docker images for the frontend and backend:
 
    ```sh
-   cd your-repository
+   cd rhombusAi
    docker-compose build
    ```
 
@@ -56,7 +56,7 @@ To run the application using Docker, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repository.git
+   git clone https://github.com/pratyush-okay/rhombusAi.git
    ```
 
 2. Install dependencies for the frontend and backend:
