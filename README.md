@@ -1,4 +1,4 @@
-# rhombusAi
+# RhombusAI
 
 YouTube Video [text](https://youtu.be/r3pnB1LcQg8)
 
@@ -22,8 +22,37 @@ This web application is designed to process and display data, focusing on data t
    - Allow users to upload CSV/Excel files, submit them for processing, and display the processed data.
    - Map backend (Pandas) data types to user-friendly names.
    - Provide users with the option to override inferred data types.
+That's great! Dockerizing your project can make it easier to manage and deploy. Here's how you can update your README file to include Docker instructions:
 
+```markdown
 ## Getting Started
+
+### Docker Instructions
+
+To run the application using Docker, follow these steps:
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/your-repository.git
+   ```
+
+2. Build the Docker images for the frontend and backend:
+
+   ```sh
+   cd your-repository
+   docker-compose build
+   ```
+
+3. Start the Docker containers:
+
+   ```sh
+   docker-compose up
+   ```
+
+4. Access the application at http://localhost:3000 in your browser.
+
+## Getting Started Without Docker
 
 1. Clone the repository:
    ```bash
