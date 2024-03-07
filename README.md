@@ -24,7 +24,7 @@ This web application is designed to process and display data, focusing on data t
    - Provide users with the option to override inferred data types.
 That's great! Dockerizing your project can make it easier to manage and deploy. Here's how you can update your README file to include Docker instructions:
 
-```markdown
+
 ## Getting Started
 
 ### Docker Instructions
